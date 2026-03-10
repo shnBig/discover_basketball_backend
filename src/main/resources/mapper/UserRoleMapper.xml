@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gain.mapper.UserRoleMapper">
+
+    <resultMap id="BaseResultMap" type="com.gain.domain.entity.UserRole">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="role_id" property="roleId"/>
+        <result column="created_at" property="createdAt"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.gain.domain.entity.UserRole" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user_role (user_id, role_id, created_at)
+        VALUES (#{userId}, #{roleId}, #{createdAt})
+    </insert>
+
+    <delete id="deleteByUserId">
+        DELETE FROM user_role WHERE user_id = #{userId}
+    </delete>
+
+    <delete id="deleteByRoleId">
+        DELETE FROM user_role WHERE role_id = #{roleId}
+    </delete>
+
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        SELECT * FROM user_role WHERE user_id = #{userId}
+    </select>
+
+    <select id="selectByRoleId" resultMap="BaseResultMap">
+        SELECT * FROM user_role WHERE role_id = #{roleId}
+    </select>
+
+</mapper>

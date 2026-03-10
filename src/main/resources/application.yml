@@ -1,0 +1,35 @@
+server:
+  port: 8080
+  tomcat:
+    remoteip:
+      protocol-header: X-Forwarded-Proto  # 识别Nginx透传的HTTPS协议头
+      protocol-header-https-value: https  # 标记HTTPS标识值
+
+spring:
+  # 指定默认激活的环境（本地开发用dev，无需手动改）
+  profiles:
+    active: dev
+  # 数据库驱动公共配置（所有环境通用）
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# MyBatis 基础配置（若同时用mybatis和mybatis-plus，保留核心即可）
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml  # 修正你原配置的拼写错误（localations→locations）
+
+# MyBatis-Plus 核心配置（所有环境通用）
+mybatis-plus:
+  type-aliases-package: com.gain.domain.entity
+  configuration:
+    map-underscore-to-camel-case: true  # 下划线转驼峰
+  global-config:
+    db-config:
+      id-type: auto  # 主键自增
+      update-strategy: not_null  # 更新时只更新非空字段
+
+# 自定义JWT配置（所有环境通用）
+gain:
+  jwt:
+    user-secret-key: shn_todays_gain_project_secret_key_030424
+    user-ttl: 7200000  # Token有效期（2小时）
+    user-token-name: Authorization
